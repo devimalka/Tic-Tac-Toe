@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto+Mono:wght@200&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+.container{
+    display: grid;
+    margin: auto;
+    text-align: center;
+    align-items: center;
+}
+
+
+#gameContainer{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    width: 600px;
+    margin: auto;
+}
+
+
+.card{
+    border: 2px solid;
+    height: 100px;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 50px;
+}
