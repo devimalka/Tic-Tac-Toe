@@ -2,6 +2,7 @@ const GameBoard = () => {
   let board = new Array(9).fill(null);
 
   const render = () => {
+    emptyBoard();
     let container = document.getElementById("gameContainer");
     board.forEach((element) => {
       let div = document.createElement("div");
@@ -11,7 +12,9 @@ const GameBoard = () => {
     });
   };
 
-  const emptyBoard = ()=>{
+  function emptyBoard(){
+    board = [];
+    board = new Array(9).fill(null);
     let container = document.getElementById("gameContainer");
     container.innerHTML = "";
   };
@@ -24,9 +27,10 @@ const GameBoard = () => {
     render,
     board,
     showboard,
-    emptyBoard
   };
 };
+
+
 
 const Player = (name, mark) => {
   let status = false;
@@ -49,12 +53,14 @@ const Player = (name, mark) => {
   return { name, mark, status, annouceWinner, setWinner, winnerState };
 };
 
+
+
+
 const Game = () => {
   let win = false;
-  let gameboard = GameBoard();
-  gameboard.render();
-  let board = gameboard.board;
-
+  let gameboard;
+  let board;
+  
   let players = [Player("one", "x"), Player("two", "o")];
 
   let winingAxes = [
@@ -68,12 +74,28 @@ const Game = () => {
     [2, 5, 7],
   ];
 
-  const BoardInput = (() => {
+  function BoardInput(){
     let boards = document.querySelectorAll(".card");
     boards.forEach((item, index) => {
       item.addEventListener("click", () => PlayerInput(item, index));
     });
-  })();
+  };
+
+  function initGame(){
+    win = false;
+    gameboard = null;
+    board = null;
+  }
+
+  const startGame = () =>{
+    initGame();
+    gameboard = GameBoard();
+    gameboard.render();
+    board = gameboard.board;
+    BoardInput();
+  }
+
+  
 
   function boardUpdate(box,index){
     if(board[index] === null){
@@ -107,8 +129,7 @@ const Game = () => {
         if (array.every((item) => board[item] === players[0].mark)) {
           players[0].setWinner();
           win = true;
-          restartGame();
-          console.log(board);
+          
         }
       });
     }
@@ -124,16 +145,19 @@ const Game = () => {
     })
   }
 
-  function restartGame(){
-     board = new Array(9).fill(null);
-     win = false;
-     players.forEach((player) => {
-      player.status = false;
-     });
-     gameboard.emptyBoard();
-     gameboard.render();
-  }
+  return{
+    startGame
+    }
 
 };
 
-let game = Game();
+
+function gameStart(){
+  let game = Game();
+  game.startGame();
+}
+
+
+let restartBtn = document.getElementById("restartBtn");
+restartBtn.addEventListener("click",gameStart);
+gameStart();

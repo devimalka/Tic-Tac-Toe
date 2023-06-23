@@ -18,13 +18,23 @@
     display: grid;
     grid-template-columns: repeat(3, auto);
     width: 600px;
-    margin: auto;
+    margin: auto auto 1em auto;
+    
 }
 
 
 .card{
     border: 2px solid;
+    width: 200px;
     height: 100px;
     font-family: 'Permanent Marker', cursive;
-    font-size: 50px;
+    font-size: 45px;
+    box-sizing: border-box; /* Add this line */
+    padding: 10px;
+}
+
+#restartBtn{
+    margin: auto;
+    width: auto;
+    height: 40px;
 }
