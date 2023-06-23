@@ -35,7 +35,7 @@ const GameBoard = () => {
 const Player = (name, mark) => {
   let status = false;
   function annouceWinner() {
-    return `The Winner Is ${mark}`;
+    return `The Winner Is ${name}`;
   }
 
   function setWinner() {
@@ -54,14 +54,25 @@ const Player = (name, mark) => {
 };
 
 
+function getPlayers(){
+  let player1 = document.getElementById("player1").value;
+  let player2 = document.getElementById("player2").value;
+  if(player1 === "" || player2 ===""){
+    alert("pleaser input the players name");
+  }
+  else{
+    return [Player(player1,"x"),Player(player2,"O")]
+  }
+  
+}
 
 
-const Game = () => {
+const Game = (playersDetails) => {
   let win = false;
   let gameboard;
   let board;
   
-  let players = [Player("one", "x"), Player("two", "o")];
+  let players = playersDetails;
 
   let winingAxes = [
     [0, 1, 2],
@@ -153,7 +164,8 @@ const Game = () => {
 
 
 function gameStart(){
-  let game = Game();
+  let players = getPlayers();
+  let game = Game(players);
   game.startGame();
 }
 
